@@ -1,0 +1,183 @@
+<p>
+    <video id="player" width="400" height="300" controls="" style="background:black;">
+    </video>
+    <br>
+    <div id="video-info"></div>
+    <br>
+    <select id="video-selector"></select>
+    <br>
+    <script>
+        var player = document.getElementById('player');
+        var videoInfo = document.getElementById('video-info');
+        var videoSelector = document.getElementById('video-selector');
+        var string1 = "https://github.com/jash-git/Three-idiots/raw/master/123/";
+        var string2 = "?raw=true";
+        var playlist = [
+			 "file0001.mp4",
+			 "file0002.mp4",
+			 "file0003.mp4",
+			 "file0004.mp4",
+			 "file0005.mp4",
+			 "file0006.mp4",
+			 "file0007.mp4",
+			 "file0008.mp4",
+			 "file0009.mp4",
+			 "file0010.mp4",
+			 "file0011.mp4",
+			 "file0012.mp4",
+			 "file0013.mp4",
+			 "file0014.mp4",
+			 "file0015.mp4",
+			 "file0016.mp4",
+			 "file0017.mp4",
+			 "file0018.mp4",
+			 "file0019.mp4",
+			 "file0020.mp4",
+			 "file0021.mp4",
+			 "file0022.mp4",
+			 "file0023.mp4",
+			 "file0024.mp4",
+			 "file0025.mp4",
+			 "file0026.mp4",
+			 "file0027.mp4",
+			 "file0028.mp4",
+			 "file0029.mp4",
+			 "file0030.mp4",
+			 "file0031.mp4",
+			 "file0032.mp4",
+			 "file0033.mp4",
+			 "file0034.mp4",
+			 "file0035.mp4",
+			 "file0036.mp4",
+			 "file0037.mp4",
+			 "file0038.mp4",
+			 "file0039.mp4",
+			 "file0040.mp4",
+			 "file0041.mp4",
+			 "file0042.mp4",
+			 "file0043.mp4",
+			 "file0044.mp4",
+			 "file0045.mp4",
+			 "file0046.mp4",
+			 "file0047.mp4",
+			 "file0048.mp4",
+			 "file0049.mp4",
+			 "file0050.mp4",
+			 "file0051.mp4",
+			 "file0052.mp4",
+			 "file0053.mp4",
+			 "file0054.mp4",
+			 "file0055.mp4",
+			 "file0056.mp4",
+			 "file0057.mp4",
+			 "file0058.mp4",
+			 "file0059.mp4",
+			 "file0060.mp4",
+			 "file0061.mp4",
+			 "file0062.mp4",
+			 "file0063.mp4",
+			 "file0064.mp4",
+			 "file0065.mp4",
+			 "file0066.mp4",
+			 "file0067.mp4",
+			 "file0068.mp4",
+			 "file0069.mp4",
+			 "file0070.mp4",
+			 "file0071.mp4",
+			 "file0072.mp4",
+			 "file0073.mp4",
+			 "file0074.mp4",
+			 "file0075.mp4",
+			 "file0076.mp4",
+			 "file0077.mp4",
+			 "file0078.mp4",
+			 "file0079.mp4",
+			 "file0080.mp4",
+			 "file0081.mp4",
+			 "file0082.mp4",
+			 "file0083.mp4",
+			 "file0084.mp4",
+			 "file0085.mp4",
+			 "file0086.mp4",
+			 "file0087.mp4",
+			 "file0088.mp4",
+			 "file0089.mp4",
+			 "file0090.mp4",
+			 "file0091.mp4",
+			 "file0092.mp4",
+			 "file0093.mp4",
+			 "file0094.mp4",
+			 "file0095.mp4",
+			 "file0096.mp4",
+			 "file0097.mp4",
+			 "file0098.mp4",
+			 "file0099.mp4",
+			 "file0100.mp4",
+			 "file0101.mp4",
+			 "file0102.mp4",
+			 "file0103.mp4",
+			 "file0104.mp4",
+			 "file0105.mp4",
+			 "file0106.mp4",
+			 "file0107.mp4",
+			 "file0108.mp4",
+			 "file0109.mp4",
+			 "file0110.mp4",
+			 "file0111.mp4",
+			 "file0112.mp4",
+			 "file0113.mp4",
+			 "file0114.mp4",
+			 "file0115.mp4",
+			 "file0116.mp4",
+			 "file0117.mp4",
+			 "file0118.mp4",
+			 "file0119.mp4",
+			 "file0120.mp4",
+			 "file0121.mp4",
+			 "file0122.mp4",
+			 "file0123.mp4",
+			 "file0124.mp4",
+			 "file0125.mp4",
+			 "file0126.mp4",
+			 "file0127.mp4",
+			 "file0128.mp4",
+			 "file0129.mp4", 
+        ];
+        var activeVideo = 0;
+
+        function updateVideoInfo() {
+            videoInfo.innerText = "目前播放第 " + (activeVideo + 1) + " 個影片，共 " + playlist.length + " 個影片";
+        }
+
+        function setVideoSource() {
+            var fileurl = string1 + playlist[activeVideo] + string2;
+            player.src = fileurl;
+            updateVideoInfo();
+        }
+
+        function populateVideoSelector() {
+            playlist.forEach((video, index) => {
+                var option = document.createElement('option');
+                option.value = index;
+                option.text = "影片 " + (index + 1);
+                videoSelector.appendChild(option);
+            });
+        }
+
+        player.addEventListener('ended', function(e) {
+            activeVideo = (++activeVideo) % playlist.length;
+            setVideoSource();
+            player.play();
+        });
+
+        videoSelector.addEventListener('change', function(e) {
+            activeVideo = parseInt(videoSelector.value);
+            setVideoSource();
+            player.play();
+        });
+
+        populateVideoSelector();
+        setVideoSource();
+    </script>
+    <br>
+</p>

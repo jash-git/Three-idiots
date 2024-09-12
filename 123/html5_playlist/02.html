@@ -1,0 +1,53 @@
+<p>
+    <video id="player" width="400" height="300" controls="" style="background:black;">
+    </video>
+    <br>
+    <div id="video-info"></div>
+    <br>
+    <select id="video-selector">
+        <option value="0">影片 1</option>
+        <option value="1">影片 2</option>
+        <option value="2">影片 3</option>
+        <option value="3">影片 4</option>
+    </select>
+    <br>
+    <script>
+        var player = document.getElementById('player');
+        var videoInfo = document.getElementById('video-info');
+        var videoSelector = document.getElementById('video-selector');
+        var string1 = "https://github.com/jash-git/Three-idiots/raw/master/123/";
+        var string2 = "?raw=true";
+        var playlist = [
+            "file0001.mp4",
+            "file0002.mp4",
+            "file0003.mp4",
+            "file0004.mp4",
+        ];
+        var activeVideo = 0;
+
+        function updateVideoInfo() {
+            videoInfo.innerText = "目前播放第 " + (activeVideo + 1) + " 個影片，共 " + playlist.length + " 個影片";
+        }
+
+        function setVideoSource() {
+            var fileurl = string1 + playlist[activeVideo] + string2;
+            player.src = fileurl;
+            updateVideoInfo();
+        }
+
+        player.addEventListener('ended', function(e) {
+            activeVideo = (++activeVideo) % playlist.length;
+            setVideoSource();
+            player.play();
+        });
+
+        videoSelector.addEventListener('change', function(e) {
+            activeVideo = parseInt(videoSelector.value);
+            setVideoSource();
+            player.play();
+        });
+
+        setVideoSource();
+    </script>
+    <br>
+</p>
